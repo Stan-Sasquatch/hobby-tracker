@@ -10,10 +10,33 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Book {
+model BookRating {
   id        String   @id @default(uuid())
   createdAt DateTime @default(now())
-  title     String   @db.VarChar(255)
+  book      Book     @relation(fields: [bookId], references: [id])
+  bookId    String
   rating    Int
-  authorId  String
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+}
+
+model Book {
+  id          String       @id @default(uuid())
+  createdAt   DateTime     @default(now())
+  title       String       @db.VarChar(255)
+  bookRatings BookRating[]
+  author      String
+}
+
+model User {
+  id        String       @id @default(uuid())
+  createdAt DateTime     @default(now())
+  name      String
+  role      Role         @default(USER)
+  books     BookRating[]
+}
+
+enum Role {
+  USER
+  ADMIN
 }
