@@ -1,5 +1,3 @@
-export type BookingRatingBaseModel = {
-	bookId: string;
-	userId: string;
-	rating: number;
-};
+import { BookRating } from ".prisma/client";
+
+export type BookRatingBaseModel = Omit<BookRating, "id" | "createdAt">;

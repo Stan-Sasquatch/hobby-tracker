@@ -1,9 +1,9 @@
 import { BookRating } from ".prisma/client";
 import prisma from "../../prisma/prisma";
-import { BookingRatingBaseModel } from "./models";
+import { BookRatingBaseModel } from "./models";
 
 export default class BookRatingsDAO {
-	static async createBookRating(data: BookingRatingBaseModel) {
+	static async createBookRating(data: BookRatingBaseModel) {
 		return await prisma.bookRating.create({ data });
 	}
 
@@ -19,9 +19,9 @@ export default class BookRatingsDAO {
 		});
 	}
 
-	static async updateBookRating(data: BookRating) {
+	static async updateBookRating(data: BookRatingBaseModel, id: string) {
 		return await prisma.bookRating.update({
-			where: { id: data.id },
+			where: { id },
 			data,
 		});
 	}
