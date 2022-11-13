@@ -1,4 +1,3 @@
-import { BookRating } from ".prisma/client";
 import prisma from "../../prisma/prisma";
 import { BookRatingBaseModel } from "./models";
 
