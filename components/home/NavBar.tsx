@@ -1,28 +1,26 @@
-import { List, ListItemButton, ListItemText } from "@mui/material";
+import { List, ListItemButton } from "@mui/material";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import React from "react";
 import { HomeNavMenuItems, paths } from "./models";
+import { useRouter } from "next/router";
 
-const NavBar = () => {
-	const pathname = usePathname();
+function NavBar() {
+	const router = useRouter();
 	return (
-		<List component="nav">
-			<Link href={paths.home}>
-				<ListItemButton selected={pathname === paths.home}>
-					<ListItemText primary={HomeNavMenuItems[HomeNavMenuItems.home]} />
+		<>
+			<List component="nav" sx={{ width: "10%", bgcolor: "background.paper" }}>
+				<ListItemButton selected={router.pathname === paths.home}>
+					<Link href={paths.home}>{HomeNavMenuItems[HomeNavMenuItems.home]}</Link>
 				</ListItemButton>
-			</Link>
-			<Link href={paths.books}>
-				<ListItemButton selected={pathname === paths.books}>
-					<ListItemText primary={HomeNavMenuItems[HomeNavMenuItems.books]} />
+				<ListItemButton selected={router?.pathname === paths.books}>
+					<Link href={paths.books}>{HomeNavMenuItems[HomeNavMenuItems.books]}</Link>
 				</ListItemButton>
-			</Link>
-			<ListItemButton selected={pathname === paths.bookRatings}>
-				<ListItemText primary={HomeNavMenuItems[HomeNavMenuItems.bookRatings]} />
-			</ListItemButton>
-		</List>
+				<ListItemButton selected={router?.pathname === paths.bookRatings}>
+					<Link href={paths.bookRatings}>{HomeNavMenuItems[HomeNavMenuItems.bookRatings]}</Link>
+				</ListItemButton>
+			</List>
+		</>
 	);
-};
+}
 
 export default NavBar;
