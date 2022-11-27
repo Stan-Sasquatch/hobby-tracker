@@ -3,3 +3,9 @@ export enum HomeNavMenuItems {
 	books,
 	bookRatings,
 }
+
+export const paths = {
+	home: "/",
+	books: "/books",
+	bookRatings: "/bookRatings",
+};

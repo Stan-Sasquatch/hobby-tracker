@@ -1,22 +1,30 @@
-import { ChakraProvider, extendTheme } from "@chakra-ui/react";
-import type { AppProps } from "next/app";
+import * as React from "react";
+import Head from "next/head";
+import { AppProps } from "next/app";
+import { ThemeProvider } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
+import { CacheProvider, EmotionCache } from "@emotion/react";
+import theme from "../config/theme";
+import createEmotionCache from "../config/createEmotionCache";
 
-function MyApp({ Component, pageProps }: AppProps) {
-	const colors = {
-		brand: {
-			900: "#1a365d",
-			800: "#153e75",
-			700: "#2a69ac",
-		},
-	};
+// Client-side cache, shared for the whole session of the user in the browser.
+const clientSideEmotionCache = createEmotionCache();
 
-	const theme = extendTheme({ colors });
+type emotionCacheProps = {
+	emotionCache?: EmotionCache;
+};
 
+export default function MyApp(props: AppProps & emotionCacheProps) {
+	const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
 	return (
-		<ChakraProvider theme={theme}>
-			<Component {...pageProps} />
-		</ChakraProvider>
+		<CacheProvider value={emotionCache}>
+			<Head>
+				<meta name="viewport" content="initial-scale=1, width=device-width" />
+			</Head>
+			<ThemeProvider theme={theme}>
+				<CssBaseline />
+				<Component {...pageProps} />
+			</ThemeProvider>
+		</CacheProvider>
 	);
 }
-
-export default MyApp;

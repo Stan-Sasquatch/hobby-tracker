@@ -1,21 +1,27 @@
-import { ChevronDownIcon } from "@chakra-ui/icons";
-import { Button, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
+import { List, ListItemButton, ListItemText } from "@mui/material";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import React from "react";
+import { HomeNavMenuItems, paths } from "./models";
 
 const NavBar = () => {
+	const pathname = usePathname();
 	return (
-		<Menu>
-			<MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
-				Actions
-			</MenuButton>
-			<MenuList>
-				<MenuItem>Download</MenuItem>
-				<MenuItem>Create a Copy</MenuItem>
-				<MenuItem>Mark as Draft</MenuItem>
-				<MenuItem>Delete</MenuItem>
-				<MenuItem>Attend a Workshop</MenuItem>
-			</MenuList>
-		</Menu>
+		<List component="nav">
+			<Link href={paths.home}>
+				<ListItemButton selected={pathname === paths.home}>
+					<ListItemText primary={HomeNavMenuItems[HomeNavMenuItems.home]} />
+				</ListItemButton>
+			</Link>
+			<Link href={paths.books}>
+				<ListItemButton selected={pathname === paths.books}>
+					<ListItemText primary={HomeNavMenuItems[HomeNavMenuItems.books]} />
+				</ListItemButton>
+			</Link>
+			<ListItemButton selected={pathname === paths.bookRatings}>
+				<ListItemText primary={HomeNavMenuItems[HomeNavMenuItems.bookRatings]} />
+			</ListItemButton>
+		</List>
 	);
 };
 
