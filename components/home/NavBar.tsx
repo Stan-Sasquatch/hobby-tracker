@@ -8,7 +8,7 @@ function NavBar() {
 	const router = useRouter();
 	return (
 		<>
-			<List component="nav" sx={{ width: "10%", bgcolor: "background.paper" }}>
+			<List component="nav" sx={{ width: "20%", bgcolor: "background.paper" }}>
 				<ListItemButton selected={router.pathname === paths.home}>
 					<Link href={paths.home}>{HomeNavMenuItems[HomeNavMenuItems.home]}</Link>
 				</ListItemButton>

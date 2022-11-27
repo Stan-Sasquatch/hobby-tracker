@@ -1,3 +1,3 @@
 export default function BookRatingsPage() {
-	return <div>Book Ratings</div>;
+	return <h1>Book Ratings</h1>;
 }
