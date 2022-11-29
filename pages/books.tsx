@@ -28,7 +28,7 @@ const BooksPage: NextPage<InferGetServerSidePropsType<typeof getServerSideProps>
 	return (
 		<>
 			<h1>Books</h1>
-			<Box sx={{ height: 300, width: "100%" }}>
+			<Box sx={{ height: 300, width: "30%" }}>
 				<DataGrid rows={props.data} columns={test} pageSize={5} rowsPerPageOptions={[5]} />
 			</Box>
 		</>
