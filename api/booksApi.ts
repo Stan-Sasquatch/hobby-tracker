@@ -1,15 +1,12 @@
 import axios from "axios";
-import { Puzzle } from "../models/puzzles";
+import { Book } from "models/book";
+import { z } from "zod";
 
 const baseUri = process.env.DEV_URL;
-const puzzlesApi = `${baseUri}/api/puzzles`;
+const booksPath = `${baseUri}/api/books`;
 
-export async function getAllPuzzles() {
-	const result = await axios.get(puzzlesApi);
-	return result.data as Puzzle[];
-}
-
-export async function getPuzzle(id: string) {
-	const test = await axios.get(`${puzzlesApi}/${id}`);
-	return test.data as unknown as Puzzle;
+export async function getAllBooks(): Promise<Book[]> {
+	const res = await axios.get(booksPath);
+	const books = z.array(Book).parse(res.data);
+	return books;
 }

@@ -1,4 +1,5 @@
 import { BookRatingBaseModel } from "./models";
+import prisma from "@backend/prisma/prisma";
 
 export default class BookRatingsDAO {
 	static async createBookRating(data: BookRatingBaseModel) {
