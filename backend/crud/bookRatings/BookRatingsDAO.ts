@@ -1,4 +1,3 @@
-import prisma from "../../prisma/prisma";
 import { BookRatingBaseModel } from "./models";
 
 export default class BookRatingsDAO {

@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import BookRatingsDAO from "@backend/bookRatings/BookRatingsDAO";
-import { BookRatingBaseModel } from "@backend/bookRatings/models";
+import BookRatingsDAO from "@backend/crud/bookRatings/BookRatingsDAO";
+import { BookRatingBaseModel } from "@backend/crud/bookRatings/models";
 import { handleTryCatch } from "@backend/utils";
 
 export default function bookRatingsHandler(req: NextApiRequest, res: NextApiResponse) {
