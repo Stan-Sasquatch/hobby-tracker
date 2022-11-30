@@ -1,13 +1,19 @@
 import { Grid } from "@mui/material";
 import Navbar from "common/components/navbar";
-import { rootNavigation } from "common/models";
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+import { Navigation } from "common/models";
+
+interface NavLayoutProps {
+	navigation: Navigation;
+	pathname?: string;
+	children: React.ReactNode;
+}
+export default function NavLayout({ navigation, pathname, children }: NavLayoutProps) {
 	return (
-		<Grid container spacing={3} columns={9}>
-			<Grid item xs={3}>
-				<Navbar navigation={rootNavigation} />
+		<Grid container spacing={2} columns={16}>
+			<Grid item xs={2}>
+				<Navbar navigation={navigation} pathname={pathname} />
 			</Grid>
-			<Grid item xs={6}>
+			<Grid item xs={14}>
 				{children}
 			</Grid>
 		</Grid>

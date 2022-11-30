@@ -1,6 +1,8 @@
 import BooksDAO from "@backend/crud/books/BooksDAO";
 import { parseModel } from "@backend/utils";
 import AllBooks from "books/components/All";
+import { booksNavigation } from "books/models";
+import NavLayout from "home/components/layout";
 import { NextPage, InferGetServerSidePropsType } from "next";
 import React from "react";
 
@@ -11,7 +13,11 @@ export async function getServerSideProps() {
 }
 
 const BooksPage: NextPage<InferGetServerSidePropsType<typeof getServerSideProps>> = (props) => {
-	return <AllBooks {...props} />;
+	return (
+		<NavLayout navigation={booksNavigation} pathname={"/books"}>
+			<AllBooks {...props} />
+		</NavLayout>
+	);
 };
 
 export default BooksPage;

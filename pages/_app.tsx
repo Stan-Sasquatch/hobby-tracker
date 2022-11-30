@@ -8,7 +8,9 @@ import theme from "../config/theme";
 import createEmotionCache from "../config/createEmotionCache";
 import { SWRConfig } from "swr";
 import axios from "axios";
-import RootLayout from "home/components/layout";
+import NavLayout from "home/components/layout";
+import { rootNavigation } from "common/models";
+import { useRouter } from "next/router";
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
@@ -19,6 +21,7 @@ type emotionCacheProps = {
 
 export default function MyApp(props: AppProps & emotionCacheProps) {
 	const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
+	const { pathname } = useRouter();
 	return (
 		<CacheProvider value={emotionCache}>
 			<Head>
@@ -26,11 +29,11 @@ export default function MyApp(props: AppProps & emotionCacheProps) {
 			</Head>
 			<ThemeProvider theme={theme}>
 				<CssBaseline />
-				<RootLayout>
+				<NavLayout navigation={rootNavigation} pathname={""}>
 					<SWRConfig value={{ fetcher }}>
 						<Component {...pageProps} />
 					</SWRConfig>
-				</RootLayout>
+				</NavLayout>
 			</ThemeProvider>
 		</CacheProvider>
 	);
