@@ -6,9 +6,9 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { CacheProvider, EmotionCache } from "@emotion/react";
 import theme from "../config/theme";
 import createEmotionCache from "../config/createEmotionCache";
-import RootLayout from "components/home/layout";
 import { SWRConfig } from "swr";
 import axios from "axios";
+import RootLayout from "home/components/layout";
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();

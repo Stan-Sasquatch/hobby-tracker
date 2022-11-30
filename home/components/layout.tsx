@@ -1,5 +1,5 @@
 import { Grid } from "@mui/material";
-import NavBar from "./NavBar";
+import NavBar from "./navbar";
 export default function RootLayout({ children }: { children: React.ReactNode }) {
 	return (
 		<Grid container spacing={3} columns={9}>
