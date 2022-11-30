@@ -7,10 +7,12 @@ import { CacheProvider, EmotionCache } from "@emotion/react";
 import theme from "../config/theme";
 import createEmotionCache from "../config/createEmotionCache";
 import RootLayout from "components/home/layout";
+import { SWRConfig } from "swr";
+import axios from "axios";
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
-
+const fetcher = (url: any) => axios.get(url).then((res) => res.data);
 type emotionCacheProps = {
 	emotionCache?: EmotionCache;
 };
@@ -25,7 +27,9 @@ export default function MyApp(props: AppProps & emotionCacheProps) {
 			<ThemeProvider theme={theme}>
 				<CssBaseline />
 				<RootLayout>
-					<Component {...pageProps} />
+					<SWRConfig value={{ fetcher }}>
+						<Component {...pageProps} />
+					</SWRConfig>
 				</RootLayout>
 			</ThemeProvider>
 		</CacheProvider>

@@ -1,11 +1,13 @@
+import BooksDAO from "@backend/crud/books/BooksDAO";
+import { parseModel } from "@backend/utils";
 import { Box } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { getAllBooks } from "api/booksApi";
 import { NextPage, InferGetServerSidePropsType } from "next";
 import React from "react";
 
 export async function getServerSideProps() {
-	const data = await getAllBooks();
+	const res = await BooksDAO.getAllBooks();
+	const data = parseModel(res);
 	return { props: { data } };
 }
 
