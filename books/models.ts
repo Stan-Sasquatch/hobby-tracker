@@ -18,7 +18,7 @@ export const booksNavigation: Navigation = {
 const VolumeInfo = z.object({
 	title: z.string(),
 	subtitle: z.string().optional(),
-	authors: z.string().array(),
+	authors: z.string().array().optional(),
 });
 
 const Volume = z.object({
@@ -27,7 +27,6 @@ const Volume = z.object({
 });
 
 export const GoogleVolume = z.object({
-	totalItems: z.number(),
 	items: Volume.array().optional(),
 });
 
