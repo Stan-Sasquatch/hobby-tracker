@@ -12,7 +12,11 @@ export async function handleTryCatch<T>(request: Promise<T>, res: NextApiRespons
 type DBModel = { createdAt: Date };
 
 export function parseModel<T extends DBModel>(res: T[]): ViewModel<T>[] {
-	return res.map((x) => ({ ...x, createdAt: x.createdAt.toDateString() }));
+	return res.map(parseItem);
+}
+
+export function parseItem<T extends DBModel>(model: T): ViewModel<T> {
+	return { ...model, createdAt: model.createdAt.toDateString() };
 }
 
 export type ViewModel<T> = Omit<T, "createdAt"> & { createdAt: string };

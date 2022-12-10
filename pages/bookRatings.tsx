@@ -1,3 +1,16 @@
-export default function BookRatingsPage() {
-	return <h1>Book Ratings</h1>;
+import BookRatingsDAO from "@backend/crud/bookRatings/BookRatingsDAO";
+import { parseItem, parseModel } from "@backend/utils";
+import AllBookRatings from "bookRatings/components/All";
+import { InferGetServerSidePropsType, NextPage } from "next/types";
+
+export async function getServerSideProps() {
+	const res = await BookRatingsDAO.getAllBookRatingsWithBookInfo();
+	const data = parseModel(res.map((x) => ({ ...x, book: parseItem(x.book) })));
+	return { props: { data } };
 }
+
+const BookRatingsPage: NextPage<InferGetServerSidePropsType<typeof getServerSideProps>> = (props) => {
+	return <AllBookRatings {...props} />;
+};
+
+export default BookRatingsPage;

@@ -12,6 +12,13 @@ export default class BookRatingsDAO {
 		});
 	}
 
+	static async getAllBookRatingsWithBookInfo() {
+		return await prisma.bookRating.findMany({
+			include: { book: true },
+			orderBy: { createdAt: "desc" },
+		});
+	}
+
 	static async getBookRatingById(id: string) {
 		return await prisma.bookRating.findUnique({
 			where: { id },
