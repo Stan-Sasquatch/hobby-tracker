@@ -9,13 +9,18 @@ interface AllBookRatingsProps {
 }
 
 const AllBookRatings: FunctionComponent<AllBookRatingsProps> = ({ data }) => {
-	const mergedData: RatingWithBookInfo[] = data.map((x) => ({
-		id: x.id,
-		rating: x.rating,
-		createdAt: x.createdAt,
-		author: x.book.author,
-		title: x.book.title,
-	}));
+	const mergedData: RatingWithBookInfo[] = data.map((x) => {
+		const { id, rating, createdAt } = x;
+		const { author, title } = x.book;
+
+		return {
+			id,
+			rating,
+			createdAt,
+			author,
+			title,
+		};
+	});
 	const columns: Column<RatingWithBookInfo>[] = [
 		{
 			field: "title",
