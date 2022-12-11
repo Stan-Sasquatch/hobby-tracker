@@ -1,17 +1,19 @@
-import { Button, List, ListItem, ListItemText, TextField } from "@mui/material";
 import BooksSearch from "books/components/booksSearch";
-import { booksNavigation, GoogleVolumesResponse } from "books/models";
-import { authorSearchGoogleVolumes } from "books/queries";
+import { booksNavigation, GoogleVolume } from "books/models";
 import NavLayout from "home/components/layout";
 import React from "react";
 
 export default function SearchBooksPage() {
+	const [volume, setVolume] = React.useState<GoogleVolume | null>(null);
+	const subtitle = volume?.volumeInfo?.subtitle;
 	return (
 		<NavLayout navigation={booksNavigation} pathname={"/books"}>
-			<h1>Search Books</h1>
-			<form noValidate autoComplete="off">
-				<BooksSearch />
-			</form>
+			<BooksSearch selectedBookVolume={volume} setSelectedBookVolume={setVolume} />
+			{subtitle && (
+				<>
+					<p>{subtitle}</p>
+				</>
+			)}
 		</NavLayout>
 	);
 }

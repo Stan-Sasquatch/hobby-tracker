@@ -1,26 +1,18 @@
-import {
-	Box,
-	Button,
-	FormControl,
-	InputLabel,
-	List,
-	ListItem,
-	ListItemText,
-	MenuItem,
-	Select,
-	SelectChangeEvent,
-	TextField,
-} from "@mui/material";
+import { Box, Button, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from "@mui/material";
 import { GoogleVolume, GoogleVolumesResponse } from "books/models";
 import { authorSearchGoogleVolumes } from "books/queries";
-import React from "react";
+import React, { FunctionComponent } from "react";
 
-export default function BooksSearch() {
+interface BooksSearchProps {
+	selectedBookVolume: GoogleVolume | null;
+	setSelectedBookVolume: React.Dispatch<React.SetStateAction<GoogleVolume | null>>;
+}
+
+const BooksSearch: FunctionComponent<BooksSearchProps> = ({ selectedBookVolume, setSelectedBookVolume }) => {
 	const [authorSearch, setAuthorSearch] = React.useState<string>("");
 	const [volumeSearchText, setVolumeSearchText] = React.useState<string>("");
 	const [resultsData, setResultsData] = React.useState<GoogleVolumesResponse>({ items: [] });
 	const [loading, setLoading] = React.useState<boolean>(false);
-	const [selectedBookVolumeId, setSelectedBookVolumeId] = React.useState<string>("");
 
 	async function handleSubmit() {
 		setLoading(true);
@@ -36,7 +28,10 @@ export default function BooksSearch() {
 	}
 
 	const onSelectedBookChange = (event: SelectChangeEvent) => {
-		setSelectedBookVolumeId(event.target.value as string);
+		const item = resultsData.items?.find((x) => x.id === event.target.value);
+		if (item) {
+			setSelectedBookVolume(item);
+		}
 	};
 
 	return (
@@ -68,7 +63,7 @@ export default function BooksSearch() {
 							id="select-books"
 							label-id="books-label"
 							label="Books"
-							value={selectedBookVolumeId}
+							value={selectedBookVolume?.id}
 							onChange={onSelectedBookChange}
 						>
 							{resultsData.items.map((item) => (
@@ -83,4 +78,6 @@ export default function BooksSearch() {
 			)}
 		</Box>
 	);
-}
+};
+
+export default BooksSearch;
