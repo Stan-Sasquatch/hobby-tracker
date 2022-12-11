@@ -1,6 +1,6 @@
 import BookRatingsDAO from "@backend/crud/bookRatings/BookRatingsDAO";
 import { parseItem, parseModel } from "@backend/utils";
-import AllBookRatings from "bookRatings/components/All";
+import AllBookRatings from "bookRatings/components/all";
 import { InferGetServerSidePropsType, NextPage } from "next/types";
 
 export async function getServerSideProps() {

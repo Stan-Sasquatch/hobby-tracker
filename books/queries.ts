@@ -1,6 +1,6 @@
 import axios from "axios";
 import { googleVolumeQueryTypes } from "common/models";
-import { GoogleVolume } from "./models";
+import { GoogleVolumesResponse } from "./models";
 import secrets from "secrets.json";
 
 export async function authorSearchGoogleVolumes(volumeSearchText: string, authorSearchText: string) {
@@ -8,10 +8,10 @@ export async function authorSearchGoogleVolumes(volumeSearchText: string, author
 
 	const query = `volumes?q=${volumeSearchText}+${googleVolumeQueryTypes.author}:${authorSearchText}&key=${secrets.GOOGLE_BOOKS_API_KEY}`;
 
-	const response = await axios.get<GoogleVolume>(`${api}/${query}`);
+	const response = await axios.get<GoogleVolumesResponse>(`${api}/${query}`);
 
 	const { data } = response;
-	GoogleVolume.parse(data);
+	GoogleVolumesResponse.parse(data);
 
 	return data;
 }

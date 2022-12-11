@@ -16,7 +16,7 @@ export const booksNavigation: Navigation = {
 };
 
 const VolumeInfo = z.object({
-	title: z.string(),
+	title: z.string().optional(),
 	subtitle: z.string().optional(),
 	authors: z.string().array().optional(),
 });
@@ -26,8 +26,9 @@ const Volume = z.object({
 	volumeInfo: VolumeInfo,
 });
 
-export const GoogleVolume = z.object({
+export const GoogleVolumesResponse = z.object({
 	items: Volume.array().optional(),
 });
 
-export type GoogleVolume = z.infer<typeof GoogleVolume>;
+export type GoogleVolumesResponse = z.infer<typeof GoogleVolumesResponse>;
+export type GoogleVolume = z.infer<typeof Volume>;
