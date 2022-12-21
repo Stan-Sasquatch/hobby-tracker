@@ -1,5 +1,5 @@
 import { Box, Button, Modal } from "@mui/material";
-import { CreateBookRating } from "bookRatings/api";
+import { CreateNewBookRating } from "bookRatings/api";
 import BooksSearch from "books/components/booksSearch";
 import { GoogleVolume } from "books/models";
 import { useRouter } from "next/router";
@@ -28,14 +28,22 @@ const CreateBookRatingModal: FunctionComponent<CreateBookRatingModalProps> = ({ 
 	const [volume, setVolume] = React.useState<GoogleVolume | null>(null);
 	const [rating, setRating] = React.useState<number | null>(null);
 	const [loading, setLoading] = React.useState<boolean>(false);
-	const [submitResponse, setSubmitResponse] = React.useState<string>("");
+	const [submitResponse, setSubmitResponse] = React.useState<string | null>(null);
 
 	const submitDisabled = !volume || !rating || loading;
 	const handleSubmit = async () => {
 		if (!submitDisabled) {
 			setLoading(true);
-			const response = await CreateBookRating(volume, rating);
-			setSubmitResponse(response);
+			const response = await CreateNewBookRating(volume, rating);
+
+			if (response.success) {
+				const successText =
+					response.data && `Successfully created a rating of ${response.data.rating} for ${response.data.book.author}`;
+				setSubmitResponse(successText);
+			} else {
+				setSubmitResponse(response.error);
+			}
+
 			reset();
 			router.replace(router.asPath);
 			setLoading(false);
