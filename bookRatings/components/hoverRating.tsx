@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from "react";
-import { Box, makeStyles, Rating } from "@mui/material";
+import { Box, Rating } from "@mui/material";
 
 const labels: Record<number, string> = {
 	0.5: "Awful",
@@ -35,7 +35,7 @@ export const HoverRating: FunctionComponent<HoverRatingProps> = ({ value, setVal
 					setHover(newHover);
 				}}
 			/>
-			{value !== null && <Box ml={2}>{labels[hover !== -1 ? hover : value]}</Box>}
+			{(value !== null || hover !== -1) && <Box ml={2}>{labels[hover !== -1 ? hover : value ?? 0]}</Box>}
 		</div>
 	);
 };
