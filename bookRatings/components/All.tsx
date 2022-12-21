@@ -3,6 +3,7 @@ import { Button } from "@mui/material";
 import { Book, BookRating } from "@prisma/client";
 import { RatingWithBookInfo } from "bookRatings/models";
 import DataTable, { Column } from "common/components/dataTable";
+import { useRouter } from "next/router";
 import React from "react";
 import { FunctionComponent } from "react";
 import CreateBookRatingModal from "./createBookRatingModal";
