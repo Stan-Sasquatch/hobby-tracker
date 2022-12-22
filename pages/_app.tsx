@@ -13,7 +13,6 @@ import { rootNavigation } from "common/models";
 import { SessionProvider } from "next-auth/react";
 import { Session } from "next-auth";
 
-// Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
 const fetcher = (url: any) => axios.get(url).then((res) => res.data);
 type emotionCacheProps = {

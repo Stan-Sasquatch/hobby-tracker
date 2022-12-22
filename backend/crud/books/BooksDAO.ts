@@ -1,5 +1,5 @@
 import { BookBaseModel } from "./models";
-import prisma from "@backend/prisma/prisma";
+import prisma from "prisma/prisma";
 
 export default class BooksDAO {
 	static async createBook(data: BookBaseModel) {
