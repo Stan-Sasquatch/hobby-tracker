@@ -10,7 +10,8 @@ import { SWRConfig } from "swr";
 import axios from "axios";
 import NavLayout from "home/components/layout";
 import { rootNavigation } from "common/models";
-import { useRouter } from "next/router";
+import { SessionProvider } from "next-auth/react";
+import { Session } from "next-auth";
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
@@ -19,9 +20,14 @@ type emotionCacheProps = {
 	emotionCache?: EmotionCache;
 };
 
-export default function MyApp(props: AppProps & emotionCacheProps) {
-	const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
-	const { pathname } = useRouter();
+export default function MyApp({
+	Component,
+	emotionCache = clientSideEmotionCache,
+	pageProps,
+}: AppProps<{
+	session: Session;
+}> &
+	emotionCacheProps) {
 	return (
 		<CacheProvider value={emotionCache}>
 			<Head>
@@ -29,11 +35,13 @@ export default function MyApp(props: AppProps & emotionCacheProps) {
 			</Head>
 			<ThemeProvider theme={theme}>
 				<CssBaseline />
-				<NavLayout navigation={rootNavigation} pathname={""}>
-					<SWRConfig value={{ fetcher }}>
-						<Component {...pageProps} />
-					</SWRConfig>
-				</NavLayout>
+				<SessionProvider session={pageProps.session}>
+					<NavLayout navigation={rootNavigation} pathname={""}>
+						<SWRConfig value={{ fetcher }}>
+							<Component {...pageProps} />
+						</SWRConfig>
+					</NavLayout>
+				</SessionProvider>
 			</ThemeProvider>
 		</CacheProvider>
 	);
