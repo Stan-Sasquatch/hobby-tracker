@@ -2,6 +2,7 @@ import { Box, Button, Modal } from "@mui/material";
 import { CreateNewBookRating } from "bookRatings/api";
 import BooksSearch from "books/components/booksSearch";
 import { GoogleVolume } from "books/models";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import React from "react";
 import { FunctionComponent } from "react";
@@ -29,12 +30,14 @@ const CreateBookRatingModal: FunctionComponent<CreateBookRatingModalProps> = ({ 
 	const [rating, setRating] = React.useState<number | null>(null);
 	const [loading, setLoading] = React.useState<boolean>(false);
 	const [submitResponse, setSubmitResponse] = React.useState<string | null>(null);
+	const { data: session } = useSession();
 
-	const submitDisabled = !volume || !rating || loading;
+	const submitDisabled = !volume || !rating || loading || !session?.user?.email;
 	const handleSubmit = async () => {
-		if (!submitDisabled) {
+		if (!submitDisabled && session?.user?.email) {
 			setLoading(true);
-			const response = await CreateNewBookRating(volume, rating);
+
+			const response = await CreateNewBookRating(session.user.email, volume, rating);
 
 			if (response.success) {
 				const successText =

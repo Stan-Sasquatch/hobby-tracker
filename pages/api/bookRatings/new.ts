@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { handleTryCatch } from "@backend/utils";
-import { CreateNewBookAndRating } from "@backend/crud/bookRatings/Commands";
+import { CreateNewBookAndRating } from "@backend/crud/bookRatings/commands/CreateNewBookAndRating";
 
 export default function bookRatingsHandler(req: NextApiRequest, res: NextApiResponse) {
 	const { method, body } = req;
