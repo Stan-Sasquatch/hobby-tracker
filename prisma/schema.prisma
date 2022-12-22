@@ -18,6 +18,7 @@ model BookRating {
   rating    Float
   user      User     @relation(fields: [userId], references: [id])
   userId    String
+  @@unique([bookId, userId])
 }
 
 model Book {
@@ -26,6 +27,7 @@ model Book {
   title       String       @db.VarChar(255)
   bookRatings BookRating[]
   author      String
+  @@unique([title, author])
 }
 
 model Account {
